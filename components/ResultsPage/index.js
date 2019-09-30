@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BackHandler, View, ScrollView } from 'react-native'
+import { BackHandler, ScrollView } from 'react-native'
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
 import { selectAnswers } from './selectors';
+import { isAnswerCorrect } from '../../utils/question';
+
+const StyledView = styled.View`
+  padding-top: 40px;
+`;
 
 const H1 = styled.Text`
   text-align: center;
@@ -63,10 +68,7 @@ class ResultsPage extends Component {
     return true;
   }
 
-  playAgain= (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-
+  playAgain= () => {
     this.props.navigation.navigate('Home');
   }
 
@@ -77,14 +79,14 @@ class ResultsPage extends Component {
       <ScrollView>
         <H1>You scored</H1>
         <H2>{
-          answers.filter(a => a.question.correct_answer === 'True' && a.answer).length
+          answers.filter(a => isAnswerCorrect(a.correct_answer, a.answer)).length
         } / {answers.length}
         </H2>
         {
           answers.map(({ question: q, answer }) => (
             <ScrollView key={q.question}>
               {
-                q.correct_answer === 'True' && answer ? (
+                isAnswerCorrect(q.correct_answer, answer) ? (
                   <CorrectQuestion>
                     {decodeURIComponent(q.question)}
                   </CorrectQuestion>
@@ -96,7 +98,7 @@ class ResultsPage extends Component {
               }
               <H2>You Answered: {answer ? 'True' : 'False'}</H2>
               <H2>Correct Answer: {q.correct_answer}</H2>
-              <H2>You were {q.correct_answer === 'True' && answer ? 'Correct' : 'Not Correct'}</H2>
+              <H2>You were {isAnswerCorrect(q.correct_answer, answer) ? 'Correct' : 'Not Correct'}</H2>
             </ScrollView>
           ))
         }
@@ -109,11 +111,11 @@ class ResultsPage extends Component {
     const { answers } = this.props;
 
     return (
-      <View className="App">
+      <StyledView>
         {
           answers && this.renderQuestions()
         }
-      </View>
+      </StyledView>
     );
   }
 }

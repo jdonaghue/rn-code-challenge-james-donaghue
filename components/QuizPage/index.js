@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, ScrollView } from 'react-native'
+import { Text, ScrollView } from 'react-native'
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
@@ -14,6 +14,10 @@ import {
   selectError,
   selectAnswers,
 } from './selectors';
+
+const StyledView = styled.View`
+  padding-top: 40px;
+`;
 
 const H1 = styled.Text`
   text-align: center;
@@ -71,10 +75,7 @@ class QuizPage extends Component {
   answerFalse = (e) => this.answer(e, false)
 
   answer = (e, truth) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    const { answers, questions, navigation, history } = this.props;
+    const { answers, questions, navigation } = this.props;
     const step = navigation.getParam('step', 1);
 
     const question = questions[step - 1];
@@ -133,7 +134,7 @@ class QuizPage extends Component {
     const { loading, error } = this.props;
 
     return (
-      <View>
+      <StyledView>
         {
           loading ? <Text>Loading...</Text> : this.renderQuestion()
         }
@@ -144,7 +145,7 @@ class QuizPage extends Component {
             </ErrorWrapper>
           ) : null
         }
-      </View>
+      </StyledView>
     );
   }
 }

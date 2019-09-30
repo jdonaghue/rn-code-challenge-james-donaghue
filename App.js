@@ -1,6 +1,5 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 
 import { store } from './store';
@@ -9,7 +8,7 @@ import QuizPage from './components/QuizPage';
 import ResultsPage from './components/ResultsPage';
 
 
-const AppNavigator = createStackNavigator({
+const AppNavigator = createSwitchNavigator({
   Home: HomePage,
   Quiz: QuizPage,
   Results: ResultsPage,

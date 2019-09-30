@@ -1,6 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
 import styled from 'styled-components/native';
+
+const StyledView = styled.View`
+  padding-top: 40px;
+`;
 
 const StyledButton = styled.Button`
   text-decoration: none;
@@ -27,7 +30,7 @@ const H2 = styled.Text`
 
 function HomePage({ navigation }) {
   return (
-    <View>
+    <StyledView>
       <H1>Welcome to the Trivia Challenge!</H1>
       <H2>You will be presented with 10 True or False questions.</H2>
       <H2>Can you score 100%?</H2>
@@ -37,7 +40,7 @@ function HomePage({ navigation }) {
             step: 1,
           })}
         />
-    </View>
+    </StyledView>
   );
 }
 
