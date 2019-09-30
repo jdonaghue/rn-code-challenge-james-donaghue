@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BackHandler, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import styled from 'styled-components/native';
 import { connect } from 'react-redux';
 
@@ -54,19 +54,6 @@ class ResultsPage extends Component {
   static propTypes = {
     answers: PropTypes.array,
   };
-
-  componentWillMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener("hardwareBackPress", this.handleBackButton);
-  }
-
-  handleBackButton = () => {
-    this.props.navigation.navigate('Home');
-    return true;
-  }
 
   playAgain= () => {
     this.props.navigation.navigate('Home');
