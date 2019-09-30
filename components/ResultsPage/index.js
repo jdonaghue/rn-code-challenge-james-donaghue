@@ -66,7 +66,7 @@ class ResultsPage extends Component {
       <ScrollView>
         <H1>You scored</H1>
         <H2>{
-          answers.filter(a => isAnswerCorrect(a.correct_answer, a.answer)).length
+          answers.filter(a => isAnswerCorrect(a.question.correct_answer, a.answer)).length
         } / {answers.length}
         </H2>
         {
